@@ -1,42 +1,61 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Clicker Game</title>
-    <link rel="stylesheet" href="TemplateData/style.css">
-    <script src="TemplateData/UnityProgress.js"></script>
+    <style>
+        * { margin: 0; padding: 0; }
+        body { 
+            background: #000; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+        }
+        canvas { 
+            width: 100%; 
+            max-width: 1100px; 
+            height: 100%; 
+            max-height: 750px; 
+            display: block; 
+        }
+    </style>
 </head>
 <body>
-    <div class="webgl-content">
-        <div id="unityContainer" style="width: 1100px; height: 750px;"></div>
-        <div class="footer">
-            <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
-        </div>
+    <div id="game-container">
+        <canvas id="unity-canvas"></canvas>
     </div>
     
     <script>
-        // ЭТО САМОЕ ВАЖНОЕ - правильные имена файлов
+        // ТВОИ ФАЙЛЫ - webgl-build.*
         var buildUrl = "Build";
+        var loaderUrl = buildUrl + "/webgl-build.loader.js";
         
-        // ОТКРОЙ ПАПКУ Build/ И СКОПИРУЙ СЮДА ИМЕНА ФАЙЛОВ:
-        var loaderUrl = buildUrl + "/WebGL.loader.js";
         var config = {
-            dataUrl: buildUrl + "/WebGL.data",
-            frameworkUrl: buildUrl + "/WebGL.framework.js",
-            codeUrl: buildUrl + "/WebGL.wasm",
-            streamingAssetsUrl: "StreamingAssets",
-            companyName: "DefaultCompany",
-            productName: "Clicker Game",
-            productVersion: "1.0",
+            dataUrl: buildUrl + "/webgl-build.data",
+            frameworkUrl: buildUrl + "/webgl-build.framework.js",
+            codeUrl: buildUrl + "/webgl-build.wasm",
+            productName: "Clicker",
+            productVersion: "1.0"
         };
 
-        // Загрузка игры
+        var canvas = document.getElementById("unity-canvas");
+        var container = document.getElementById("game-container");
+        
+        // Полноэкранный режим
+        canvas.width = 1100;
+        canvas.height = 750;
+        
         var script = document.createElement("script");
         script.src = loaderUrl;
         script.onload = function() {
-            createUnityInstance(document.getElementById("unityContainer"), config);
+            createUnityInstance(canvas, config, function(progress) {
+                console.log("Loading: " + Math.round(progress * 100) + "%");
+            }).then(function(instance) {
+                console.log("Game loaded!");
+            });
         };
+        
         document.body.appendChild(script);
     </script>
 </body>
