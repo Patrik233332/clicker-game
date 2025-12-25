@@ -27,36 +27,25 @@
     </div>
     
     <script>
-        // ТВОИ ФАЙЛЫ - webgl-build.*
-        var buildUrl = "Build";
-        var loaderUrl = buildUrl + "/webgl-build.loader.js";
-        
-        var config = {
-            dataUrl: buildUrl + "/webgl-build.data",
-            frameworkUrl: buildUrl + "/webgl-build.framework.js",
-            codeUrl: buildUrl + "/webgl-build.wasm",
-            productName: "Clicker",
-            productVersion: "1.0"
-        };
+        <script>
+    var loaderUrl = "Build/webgl-build.loader.js";
+    
+    var config = {
+        dataUrl: "Build/webgl-build.data",
+        frameworkUrl: "Build/webgl-build.framework.js",
+        codeUrl: "Build/webgl-build.wasm",
+        productName: "Clicker",
+        productVersion: "1.0"
+    };
 
-        var canvas = document.getElementById("unity-canvas");
-        var container = document.getElementById("game-container");
-        
-        // Полноэкранный режим
-        canvas.width = 1100;
-        canvas.height = 750;
-        
-        var script = document.createElement("script");
-        script.src = loaderUrl;
-        script.onload = function() {
-            createUnityInstance(canvas, config, function(progress) {
-                console.log("Loading: " + Math.round(progress * 100) + "%");
-            }).then(function(instance) {
-                console.log("Game loaded!");
-            });
-        };
-        
-        document.body.appendChild(script);
+    var canvas = document.getElementById("unity-canvas");
+    
+    var script = document.createElement("script");
+    script.src = loaderUrl;  // Теперь точно "Build/webgl-build.loader.js"
+    script.onload = function() {
+        createUnityInstance(canvas, config);
+    };
+    document.body.appendChild(script);
     </script>
 </body>
 </html>
