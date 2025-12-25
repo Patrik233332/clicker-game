@@ -4,21 +4,35 @@
     <meta charset="utf-8">
     <title>Clicker Game</title>
     <style>
-        * { margin: 0; padding: 0; }
-        body { 
-            background: #000; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-        }
-        canvas { 
-            width: 100%; 
-            max-width: 1100px; 
-            height: 100%; 
-            max-height: 750px; 
-            display: block; 
-        }
+    body { 
+        margin: 0; 
+        padding: 0; 
+        background: #000; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden; /* Убирает прокрутку */
+    }
+    
+    canvas { 
+        display: block; 
+        width: 100% !important;  /* !important перебивает стили Unity */
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: contain; /* Сохраняет пропорции игры */
+    }
+    
+    /* Контейнер для центрирования */
+    #unity-container, #game-container, .webgl-content {
+        width: 100% !important;
+        height: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
     </style>
 </head>
 <body>
