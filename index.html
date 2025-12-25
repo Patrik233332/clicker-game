@@ -4,34 +4,23 @@
     <meta charset="utf-8">
     <title>Clicker Game</title>
     <style>
-    body { 
-        margin: 0; 
-        padding: 0; 
-        background: #000; 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        height: 100vh;
-        width: 100vw;
-        overflow: hidden; /* Убирает прокрутку */
+    body, html {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        overflow: hidden !important;
+        background: black !important;
     }
     
-    canvas { 
-        display: block; 
-        width: 100% !important;  /* !important перебивает стили Unity */
-        height: 100% !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
-        object-fit: contain; /* Сохраняет пропорции игры */
-    }
-    
-    /* Контейнер для центрирования */
-    #unity-container, #game-container, .webgl-content {
-        width: 100% !important;
-        height: 100% !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
+    #unity-container, #unity-canvas {
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: none !important;
+        max-height: none !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
     }
     </style>
 </head>
@@ -59,6 +48,20 @@
         createUnityInstance(canvas, config);
     };
     document.body.appendChild(script);
+    // Принудительное растягивание после загрузки Unity
+setTimeout(function() {
+    var canvas = document.getElementById('unity-canvas');
+    if (canvas) {
+        canvas.style.width = '100vw';
+        canvas.style.height = '100vh';
+        canvas.style.maxWidth = 'none';
+        canvas.style.maxHeight = 'none';
+        canvas.style.display = 'block';
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+    }
+}, 2000); // Через 2 секунды после загрузки
     </script>
 </body>
 </html>
